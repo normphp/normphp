@@ -1,0 +1,51 @@
+{
+    "name": "normphp/normphp",
+    "description": "normphp",
+    "keywords": ["normphp"],
+    "homepage": "https://org.heil.top/",
+    "authors": [
+        {
+            "name": "pizepei",
+            "email": "pizepei@pizepei.com"
+        }
+    ],
+    "scripts": {
+        "post-update-cmd": "normphp\\staging\\scripts\\ToolScripts::postUpdateCmd",
+        "post-install-cmd": "normphp\\staging\\scripts\\ToolScripts::postUpdateCmd"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "normphp/staging":"dev-main",
+        "php": ">=7.0.0",
+        "ext-pdo": "*",
+        "ext-json": "*"
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://mirrors.aliyun.com/composer/"
+        }
+    },
+    "config": {
+        "process-timeout": 1800,
+        "gitlab-oauth": {
+        },
+        "github-oauth": {
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "app\\": "app/",
+            "model\\": "model/",
+            "tests\\": "tests/",
+            "manage\\":"manage/",
+            "config\\": "config/",
+            "service\\": "service/",
+            "authority\\": "authority/",
+            "container\\": "container/"
+        },
+        "psr-0": {
+            "": "extend/"
+        }
+    }
+}
