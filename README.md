@@ -50,36 +50,44 @@ normphp致力于在框架层次强制规范开发人员的业务实现来确保�
             3、composer install #执行composer命令 或者使用normphp-helper命令行执行
     目录结构：
     NGINX伪静态配置：
-### 单元测试：
-    composer require --dev phpunit/phpunit:8
-### 模板引擎：
-    composer require "twig/twig:~1.0"
 ### 开发规范
 * 团队开发业务功能时可尽可能的以composer包形式开发方便代码维护和跨项目复用。
     * composer包可使用本地git源详情这样项目代码就不公开[https://getcomposer.org/doc/04-schema.md#repositories]（注意：定义包源只能在执行composer命令的目录的conposer.json文件的repositories中定义）
     * 本地源需要认证可创建auth.json文件[https://getcomposer.org/doc/articles/handling-private-packages-with-satis.md#authentication]当然团队成员在自己工作电脑上已经有SSH Keys 就不需要这个文件了
-### 使用内部源
+### composer 技巧
+#### 使用内部源
         composer包可使用本地git源详情这样项目代码就不公开[https://getcomposer.org/doc/04-schema.md#repositories]
         如出现无法加载私有gitlab项目可在composer.json 中增加gitlab-oauth配置其他仓库可参考配置
         本地源需要认证可创建auth.json文件[https://getcomposer.org/doc/articles/handling-private-packages-with-satis.md#authentication]当然团队成员在自己工作电脑上已经有SSH Keys 就不需要这个文件了
         "config": {
             "process-timeout": 1800,
             "gitlab-oauth": {
-                "192.168.1.100": "3Cp6NGxxxxHzssssCw"
+                "192.168.1.100": "3Cp6NGxxxxxxxxCw"
             }
         }
-### composer 代理加速
-    如需要使用官方包管理又苦难速度感人可[命令行]使用代理
-    export https_proxy='127.0.0.1:10808'
-    export http_proxy='127.0.0.1:10808'
-    composer update -vvv    查看是否使用代理
-### composer 修改源
-    修改源加速 参考https://developer.aliyun.com/composer
-    如碰到依然无法加速
-    1. 建议先将Composer版本升级到最新：composer self-update
-    2. 执行诊断命令：composer diagnose
-    3. 清除缓存：composer clear
-    4. 若项目之前已通过其他源安装，则需要更新 composer.lock 文件，执行命令：composer update --lock
+#### composer 代理加速
+    如需要使用官方包管理又苦难速度感人可：
+    1、在root composer.json中定当前项目以及依赖的包使用的镜像地址（推荐，默认以配置）：
+        "repositories": {
+            "packagist": {
+                "type": "composer",
+                "url": "https://mirrors.aliyun.com/composer/"
+            }
+        }
+        修改源加速 参考https://developer.aliyun.com/composer
+        如碰到依然无法加速
+            1. 建议先将Composer版本升级到最新：composer self-update
+            2. 执行诊断命令：composer diagnose
+            3. 清除缓存：composer clear
+            4. 若项目之前已通过其他源安装，则需要更新 composer.lock 文件，执行命令：composer update --lock
+    2、[命令行]使用代理（不推荐）
+        export https_proxy='127.0.0.1:10808'
+        export http_proxy='127.0.0.1:10808'
+        composer update -vvv    查看是否使用代理
+#### 更新命名空间
+        composer dumpautoload
+### 单元测试：
+    composer require --dev phpunit/phpunit:8
 ###资源分享
 #### 软件
 * 官方免费Xftp和Xshell [https://www.netsarang.com/en/free-for-home-school/]（这个是官方免费的只需要填写姓名和邮箱就可以收到一封带有下载地址的官方邮件）
@@ -98,6 +106,6 @@ normphp致力于在框架层次强制规范开发人员的业务实现来确保�
         * 为了避免make 时出现【fatal error: sql.h: No such file or directory】错误 （ 安装unixodbc的工具包即可  yum install unixODBC-devel ）
         * 与mysql不同 的dbh  new PDO("sqlsrv:Server=localhost,端口号;Database=数据库", 用户名 , 密码);
 #### composer
-* 命令composer dumpautoload 更新命名空间
+* 
 #### 活久见
 * windows 挂载sftp到本地盘符 <br> 下载安装winfsp.msi[https://github.com/billziss-gh/winfsp/releases]  <br>下载安装sshfs-win.msi[https://github.com/billziss-gh/sshfs-win/releases]  <br>安装后：右键单击"此电脑", 选择"映射网络驱动器" 填写地址：\\sshfs\用户名@服务器地址\  <br>这里注意：服务器地址后是目录地址如果配置完成回不上想要的地址就加上.. 代表上一级目录如：\\sshfs\用户名@服务器地址\..\..\..\source
