@@ -50,10 +50,12 @@ normphp致力于在框架层次强制规范开发人员的业务实现来确保�
             3、composer install #执行composer命令 或者使用normphp-helper命令行执行
     目录结构：
     NGINX伪静态配置：rewrite /$   /项目目录/public/index.php  last; 
-### 开发规范
+### windows开发环境快速脚手架：
+* 项目地址https://github.com/normphp/normphp-helper/ 使用方法请详细阅读项目文档
+### 开发规范：
 * 团队开发业务功能时可尽可能的以composer包形式开发方便代码维护和跨项目复用。
-    * composer包可使用本地git源详情这样项目代码就不公开[https://getcomposer.org/doc/04-schema.md#repositories]（注意：定义包源只能在执行composer命令的目录的conposer.json文件的repositories中定义）
-    * 本地源需要认证可创建auth.json文件[https://getcomposer.org/doc/articles/handling-private-packages-with-satis.md#authentication]当然团队成员在自己工作电脑上已经有SSH Keys 就不需要这个文件了
+    * composer包可使用本地git源详情这样项目代码就不公开https://getcomposer.org/doc/04-schema.md#repositories （注意：定义包源只能在执行composer命令的目录的conposer.json文件的repositories中定义）
+    * 本地源需要认证可创建auth.json文件 https://getcomposer.org/doc/articles/handling-private-packages-with-satis.md#authentication 当然团队成员在自己工作电脑上已经有SSH Keys 就不需要这个文件了
 ### composer 技巧
 #### 使用内部源
         composer包可使用本地git源详情这样项目代码就不公开[https://getcomposer.org/doc/04-schema.md#repositories]
@@ -90,13 +92,13 @@ normphp致力于在框架层次强制规范开发人员的业务实现来确保�
     composer require --dev phpunit/phpunit:8
 ###资源分享
 #### 软件
-* 官方免费Xftp和Xshell [https://www.netsarang.com/en/free-for-home-school/]（这个是官方免费的只需要填写姓名和邮箱就可以收到一封带有下载地址的官方邮件）
+* 官方免费Xftp和Xshell  https://www.netsarang.com/en/free-for-home-school/ （这个是官方免费的只需要填写姓名和邮箱就可以收到一封带有下载地址的官方邮件）
 #### PHP扩展安装
-* PHP 扩展下载[http://pecl.php.net/]
-* PHP 常用扩展[https://pecl.php.net/package-stats.php][https://www.php.net/manual/zh/refs.basic.other.php]
+* PHP 扩展下载 http://pecl.php.net/ 
+* PHP 常用扩展 https://pecl.php.net/package-stats.php https://www.php.net/manual/zh/refs.basic.other.php
 * sql server 拓展安装（注意细节）
     * 准备工作:
-        * 下载地址：[http://pecl.php.net/package/pdo_sqlsrv]
+        * 下载地址：http://pecl.php.net/package/pdo_sqlsrv
         * 加入微软的源 curl https://packages.microsoft.com/config/rhel/7/prod.repo > /etc/yum.repos.d/mssqlrelease.repo
         * 或者一次性 安装所有依赖包
             * 防止冲突先卸载原有版本(可选)  yum remove unixODBC
@@ -108,4 +110,4 @@ normphp致力于在框架层次强制规范开发人员的业务实现来确保�
 #### composer
 * 
 #### 活久见
-* windows 挂载sftp到本地盘符 <br> 下载安装winfsp.msi[https://github.com/billziss-gh/winfsp/releases]  <br>下载安装sshfs-win.msi[https://github.com/billziss-gh/sshfs-win/releases]  <br>安装后：右键单击"此电脑", 选择"映射网络驱动器" 填写地址：\\sshfs\用户名@服务器地址\  <br>这里注意：服务器地址后是目录地址如果配置完成回不上想要的地址就加上.. 代表上一级目录如：\\sshfs\用户名@服务器地址\..\..\..\source
+* windows 挂载sftp到本地盘符 <br> 下载安装winfsp.msi https://github.com/billziss-gh/winfsp/releases  <br>下载安装sshfs-win.msi https://github.com/billziss-gh/sshfs-win/releases  <br>安装后：右键单击"此电脑", 选择"映射网络驱动器" 填写地址：\\sshfs\用户名@服务器地址\  <br>这里注意：服务器地址后是目录地址如果配置完成回不上想要的地址就加上.. 代表上一级目录如：\\sshfs\用户名@服务器地址\..\..\..\source
