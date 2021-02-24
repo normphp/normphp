@@ -49,7 +49,7 @@ normphp致力于在框架层次强制规范开发人员的业务实现来确保�
             2、进入到克隆创建的normphp目录（composer.json同级）
             3、composer install #执行composer命令 或者使用normphp-helper命令行执行
     目录结构：
-    NGINX伪静态配置：
+    NGINX伪静态配置：rewrite /$   /项目目录/public/index.php  last; 
 ### 开发规范
 * 团队开发业务功能时可尽可能的以composer包形式开发方便代码维护和跨项目复用。
     * composer包可使用本地git源详情这样项目代码就不公开[https://getcomposer.org/doc/04-schema.md#repositories]（注意：定义包源只能在执行composer命令的目录的conposer.json文件的repositories中定义）
