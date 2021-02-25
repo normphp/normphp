@@ -50,6 +50,14 @@ normphp致力于在框架层次强制规范开发人员的业务实现来确保�
             3、composer install #执行composer命令 或者使用normphp-helper命令行执行
     目录结构：
     NGINX伪静态配置：rewrite /$   /项目目录/public/index.php  last; 
+### 快速运行
+    1、启动命令行窗口（推荐Git Bash Here 或者 PhpStorm Terminal）
+    2、进入项目目录下的public/目录
+    3、有两种方式快速启动一个临时性的WEB开发服务，自行选择
+    # 3-1、直接使用默认PHP版本启动php web服务，运行当前项目
+    php   -S 127.0.0.1:8080  index.php
+    # 3-2、使用normphp脚手架（需要先安装）使指定的PHP版本启动php web服务，运行当前项目
+    normphp -php run 7.4   -S 127.0.0.1:8080  index.php
 ### windows开发环境快速脚手架：
 * 项目地址https://github.com/normphp/normphp-helper/ 使用方法请详细阅读项目文档
 ### 开发规范：
