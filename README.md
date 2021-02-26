@@ -9,6 +9,7 @@ normphp致力于在框架层次强制规范开发人员的业务实现来确保�
 * 使用本框架需要一定的nginx基础或者常用控制面板的使用知识（如BT面板）知识：
     * 1、本框架只适配nginx。
     * 2、本框架需要配置nginx伪静态方可在网络上提供服务。
+    * 3、本框架可直接在本地使用：php   -S 127.0.0.1:8080  index.php 运行，不需要nginx等环境（不建议在生产环境使用）
 * 使用本框架推荐使用IDE PhpStorm：
     * 1、框架有配套的开发调试模式：编辑本地项目文件通过IDE的tools->deployment工具时时同步上次代码变化到开发环境服务器运行。
     * 2、完美适配PhpStorm IDE 提供settings.zip配置文件使开发更加规范便捷。
@@ -39,17 +40,21 @@ normphp致力于在框架层次强制规范开发人员的业务实现来确保�
 * 高效的设计模式（DI依赖注入，DIC容器）
     * 详细介绍可谷歌
 ### 安装方式：
-    方式一直接使用composer创建项目：   composer create-project normphp/normphp [项目名称]   [版本：dev-main为最新]
-        示例：composer create-project normphp/normphp myproject dev-main
-    方式二使用normphp-helper命令行：  normphp -php run 7.4 composer create-project normphp/normphp [项目名称]   [版本：dev-main为最新]
-        示例：normphp -php run 7.4 composer create-project normphp/normphp myproject  dev-main
-    方式三使用git clone克隆：         git clone --branch [tags标签] git@github.com:normphp/normphp.git    clone对应分支使用 git clone -b [分支]  git@github.com:normphp/normphp.git
-         简单示例：
-            1、git clone  git@github.com:normphp/normphp.git  #克隆composer.json文件到本地
-            2、进入到克隆创建的normphp目录（composer.json同级）
-            3、composer install #执行composer命令 或者使用normphp-helper命令行执行
-    目录结构：
-    NGINX伪静态配置：rewrite /$   /项目目录/public/index.php  last; 
+* 安装方式一直接使用composer创建项目： composer create-project normphp/normphp [项目名称]   [版本：dev-main为最新]
+~~~ shell
+ 示例：composer create-project normphp/normphp myproject dev-main
+~~~
+* 安装方式二使用git clone克隆：git clone --branch [tags标签] git@github.com:normphp/normphp.git    clone对应分支使用 git clone -b [分支]  git@github.com:normphp/normphp.git
+~~~ shell
+ 简单示例：
+    1、git clone  git@github.com:normphp/normphp.git  #克隆composer.json文件到本地
+    2、进入到克隆创建的normphp目录（composer.json同级）
+    3、composer install #执行composer命令 或者使用normphp-helper命令行执行
+~~~
+* 安装方式三（如果你有安装normphp-helper命令行）：normphp -php run 7.4 composer create-project normphp/normphp [项目名称]   [版本：dev-main为最新]
+~~~ shell
+ 示例：normphp -php run 7.4 composer create-project normphp/normphp myproject  dev-main
+~~~ 
 ### 快速运行
     1、启动命令行窗口（推荐Git Bash Here 或者 PhpStorm Terminal）
     2、进入项目目录下的public/目录
@@ -58,44 +63,136 @@ normphp致力于在框架层次强制规范开发人员的业务实现来确保�
     php   -S 127.0.0.1:8080  index.php
     # 3-2、使用normphp脚手架（需要先安装）使指定的PHP版本启动php web服务，运行当前项目
     normphp -php run 7.4   -S 127.0.0.1:8080  index.php
+### 快速运行
+~~~ shell
+    NGINX伪静态配置：rewrite /$   /项目目录/public/index.php  last; 
+~~~ 
+### 目录结构
+~~~ 
+normphp                克隆或者下载解压得到的项目目录
+├─app                  项目应用控制器目录
+├─config               应用配置目录
+│  ├─app               应用配置
+│  ├─route             框架自动生成的路由配置文件
+│  ├─Deploy.php        项目应用运行部署配置
+├─container            门面容器目录（主要是适配IDE）
+│  ├─app           
+│  │  ├─AppContainer.php           框架门面容器（主要是适配IDE）
+│  │  ├─HelperContainer.php        框架Helper函数门面容器（主要是适配IDE）
+├─public                           框架入口文件
+│  ├─404.php              404错误处理文件（暂时没什么用）
+│  ├─index.php            框架入口文件（web项目入口文件）
+│  ├─index_cli.php            框架入口文件（CLI入口文件）
+├─runtime                     缓存、日志目录
+│  ├─errorlog                 错误日志目录
+├─vendor                      composer包目录
+├─composer.json               命令行下载文件临时保存目录
+
+注意：命令结构可能会更新变化
+~~~ 
 ### windows开发环境快速脚手架：
-* 项目地址https://github.com/normphp/normphp-helper/ 使用方法请详细阅读项目文档
+* 项目地址(https://github.com/normphp/normphp-helper/) 使用方法请详细阅读项目文档
 ### 开发规范：
 * 团队开发业务功能时可尽可能的以composer包形式开发方便代码维护和跨项目复用。
     * composer包可使用本地git源详情这样项目代码就不公开https://getcomposer.org/doc/04-schema.md#repositories （注意：定义包源只能在执行composer命令的目录的conposer.json文件的repositories中定义）
     * 本地源需要认证可创建auth.json文件 https://getcomposer.org/doc/articles/handling-private-packages-with-satis.md#authentication 当然团队成员在自己工作电脑上已经有SSH Keys 就不需要这个文件了
+#### 模块包开发规范：
+* normphp框架不建议直接在项目中编写业务代码
+    * 如需要开发一个商品管理模块可进行如下步骤：
+        * 在您的github.com或者gitlab仓库中创建一个项目：
+            * 项目名称为package-goods（项目名称非强制要求，只是建议以这样的格式命名）
+            * 在项目中创建如下目录结构
+~~~ 
+src                克隆或者下载解压得到的项目目录
+├─controller                   控制器目录
+│  ├─namespaceControllerPath.json                  控制器相关定义文件
+├─composer.json                   包定义文件
+~~~ 
+composer.json文件示例（这里需要一些composer包定义的基础知识）
+~~~ json
+{
+  "name": "normphp-package/goods",
+  "description": "normphp",
+  "require": {
+    "php": ">=7.0.0"
+  },
+  "repositories": {
+  },
+  "autoload": {
+    "psr-4": {
+      "normphpPackage\\demo\\": "src/"
+    }
+  }
+}
+~~~ 
+namespaceControllerPath.json文件示例（文件主要是用来定义控制器目录、api权限相关配置）
+~~~ json
+{
+  "name":"演示demo",
+  "author": "pizepei",
+  "explain": "",
+  "baseAuthGroup": {
+    "systemBasics": {
+      "name":"演示demo",
+      "explain": "演示demo"
+    },
+    "systemUser": {
+      "name":"系统用户",
+      "explain": "演示demo"
+    }
+  }
+}
+~~~ 
+* 篇幅有限这里只是简单做介绍
+    * 假如您的项目需要一个商品管理模块，我们需要通过composer包的形式进行开发。
+    * 控制器文件按照规范编写在包项目的src/controller/下以BasicsXXXX.php显示命名。
+    * 当你的项目require了你的商品管理模块包时再次运行项目时就自动的在/app/下创建了控制器文件，此控制器文件继承了您在包中编写的控制器文件
+* 具体的包开发示例前参考
+    * github 项目https://github.com/normphp/package-demo
+    * 或者直接在项目目录下/vendor/normphp-package/demo/查看相关源代码
+    * 相信只要您有一定的composer包开发基础就可以理解如何开发了。
+* 关于如何创建控制器、定义路由等文档后期会持续更新出来
+* 详细具体的开发文档敬请期待normphp.org官网文档
 ### composer 技巧
 #### 使用内部源
-        composer包可使用本地git源详情这样项目代码就不公开[https://getcomposer.org/doc/04-schema.md#repositories]
-        如出现无法加载私有gitlab项目可在composer.json 中增加gitlab-oauth配置其他仓库可参考配置
-        本地源需要认证可创建auth.json文件[https://getcomposer.org/doc/articles/handling-private-packages-with-satis.md#authentication]当然团队成员在自己工作电脑上已经有SSH Keys 就不需要这个文件了
-        "config": {
-            "process-timeout": 1800,
-            "gitlab-oauth": {
-                "192.168.1.100": "3Cp6NGxxxxxxxxCw"
-            }
-        }
+* composer包可使用本地git源详情这样项目代码就不公开[https://getcomposer.org/doc/04-schema.md#repositories]
+* 如出现无法加载私有gitlab项目可在composer.json 中增加gitlab-oauth配置其他仓库可参考配置
+* 本地源需要认证可创建auth.json文件[https://getcomposer.org/doc/articles/handling-private-packages-with-satis.md#authentication]当然团队成员在自己工作电脑上已经有SSH Keys 就不需要这个文件了
+~~~ json
+"config": {
+    "process-timeout": 1800,
+    "gitlab-oauth": {
+        "192.168.1.100": "3Cp6NGxxxxxxxxCw"
+    }
+}
+~~~ 
 #### composer 代理加速
-    如需要使用官方包管理又苦难速度感人可：
-    1、在root composer.json中定当前项目以及依赖的包使用的镜像地址（推荐，默认以配置）：
-        "repositories": {
-            "packagist": {
-                "type": "composer",
-                "url": "https://mirrors.aliyun.com/composer/"
-            }
-        }
-        修改源加速 参考https://developer.aliyun.com/composer
-        如碰到依然无法加速
-            1. 建议先将Composer版本升级到最新：composer self-update
-            2. 执行诊断命令：composer diagnose
-            3. 清除缓存：composer clear
-            4. 若项目之前已通过其他源安装，则需要更新 composer.lock 文件，执行命令：composer update --lock
-    2、[命令行]使用代理（不推荐）
-        export https_proxy='127.0.0.1:10808'
-        export http_proxy='127.0.0.1:10808'
-        composer update -vvv    查看是否使用代理
+* 如需要使用官方包管理又苦难速度感人可：
+    * 在root composer.json中定当前项目以及依赖的包使用的镜像地址（推荐，默认以配置）：
+~~~ json
+"repositories": {
+    "packagist": {
+        "type": "composer",
+        "url": "https://mirrors.aliyun.com/composer/"
+    }
+}
+~~~
+* 修改源加速 参考https://developer.aliyun.com/composer
+    * 如碰到依然无法加速
+        *  建议先将Composer版本升级到最新：composer self-update
+        *  执行诊断命令：composer diagnose
+        *  清除缓存：composer clear
+        *  若项目之前已通过其他源安装，则需要更新 composer.lock 文件，执行命令：composer update --lock
+    * [命令行]使用代理（不推荐）
+~~~ shell
+    export https_proxy='127.0.0.1:10808'
+    export http_proxy='127.0.0.1:10808'
+    composer update -vvv    查看是否使用代理
+~~~
 #### 更新命名空间
-        composer dumpautoload
+~~~ shell
+  composer dumpautoload
+~~~
 ### 单元测试：
     composer require --dev phpunit/phpunit:8
 ###资源分享
