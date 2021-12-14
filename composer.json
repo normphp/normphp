@@ -16,18 +16,20 @@
     "minimum-stability": "dev",
     "require": {
         "normphp/staging":"dev-main",
-        "normphp-package/demo":"dev-main",
-        "normphp-core/dev-doc":"dev-main",
         "php": ">=7.0.0",
         "ext-pdo": "*",
         "ext-json": "*"
     },
-    "repositories": {
-        "packagist": {
+    "require-dev": {
+        "normphp-package/demo":"dev-main",
+        "normphp-core/dev-doc":"dev-main"
+    },
+    "repositories": [
+        {
             "type": "composer",
             "url": "https://mirrors.aliyun.com/composer/"
         }
-    },
+    ],
     "config": {
         "process-timeout": 1800,
         "gitlab-oauth": {
